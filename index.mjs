@@ -1,11 +1,3 @@
-//  CREATE TABLE seats (
-//      id SERIAL PRIMARY KEY,
-//      name VARCHAR(255),
-//      isbooked INT DEFAULT 0
-//  );
-// INSERT INTO seats (isbooked)
-// SELECT 0 FROM generate_series(1, 20);
-
 import 'dotenv/config';
 
 import express from 'express';
@@ -15,6 +7,9 @@ import { fileURLToPath } from 'url';
 import cors from 'cors';
 import pool from './src/config/db.js';
 import { createSeatsTable } from './src/data/createDbTables.js';
+import authRouter from './src/routes/auth.routes.js';
+import errorMiddleware from './src/middlewares/error-middleware.js';
+import { createUserTable } from './src/models/auth.model.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -22,9 +17,18 @@ const port = process.env.PORT || 8080;
 
 const app = new express();
 app.use(cors());
+app.use(express.json());
+
+//error middleware
+app.use(errorMiddleware);
 
 //createSeatsTable
 createSeatsTable();
+//create user table
+createUserTable();
+
+//routes
+app.use('/api', authRouter);
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
