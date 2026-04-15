@@ -7,6 +7,7 @@ export const createUserTable = async () => {
   username VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
   password_hash TEXT NOT NULL,
+   refresh_token TEXT,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );`);
@@ -28,5 +29,11 @@ export const findUserByEmail = async (email) => {
   const result = await pool.query('SELECT * FROM users WHERE email=$1', [
     email,
   ]);
+  return result.rows[0];
+};
+
+export const findUserById = async (id) => {
+  const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+
   return result.rows[0];
 };
