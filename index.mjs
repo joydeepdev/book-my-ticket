@@ -10,6 +10,7 @@ import { createSeatsTable } from './src/data/createDbTables.js';
 import authRouter from './src/routes/auth.routes.js';
 import errorMiddleware from './src/middlewares/error-middleware.js';
 import { createUserTable } from './src/models/auth.model.js';
+import authMiddleware from './src/middlewares/auth-middleware.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -18,9 +19,6 @@ const port = process.env.PORT || 8080;
 const app = new express();
 app.use(cors());
 app.use(express.json());
-
-//error middleware
-app.use(errorMiddleware);
 
 //createSeatsTable
 createSeatsTable();
@@ -34,7 +32,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 //get all seats
-app.get('/seats', async (req, res) => {
+app.get('/seats', authMiddleware, async (req, res) => {
   const result = await pool.query('select * from seats'); // equivalent to Seats.find() in mongoose
   res.send(result.rows);
 });
@@ -78,5 +76,8 @@ app.put('/:id/:name', async (req, res) => {
     res.send(500);
   }
 });
+
+//error middleware
+app.use(errorMiddleware);
 
 app.listen(port, () => console.log('Server starting on port: ' + port));
