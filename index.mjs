@@ -43,7 +43,7 @@ const initDB = async () => {
 
 await initDB();
 //routes
-app.use('/api', authRouter);
+app.use('/api/auth', authRouter);
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
