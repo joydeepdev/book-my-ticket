@@ -8,11 +8,11 @@ import cors from 'cors';
 import {
   createBookingsTable,
   createSeatsTable,
+  createUserTable,
 } from './src/data/createDbTables.js';
 import authRouter from './src/routes/auth.routes.js';
 import errorMiddleware from './src/middlewares/error-middleware.js';
-import { createUserTable } from './src/models/auth.model.js';
-import authMiddleware from './src/middlewares/auth-middleware.js';
+
 import bookingRouter from './src/routes/booking.routes.js';
 import cookieParser from 'cookie-parser';
 
@@ -25,12 +25,23 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-//createSeatsTable
-createSeatsTable();
-//create user table
-createUserTable();
-createBookingsTable();
+//creating tables
+const initDB = async () => {
+  try {
+    console.log('Initializing database...');
 
+    await createUserTable();
+    await createSeatsTable();
+    await createBookingsTable();
+
+    console.log('Database ready');
+  } catch (err) {
+    console.error('DB init failed ', err);
+    process.exit(1); // stop app if DB fails
+  }
+};
+
+await initDB();
 //routes
 app.use('/api', authRouter);
 
