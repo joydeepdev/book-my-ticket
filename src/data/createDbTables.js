@@ -31,3 +31,19 @@ export const createSeatsTable = async () => {
   }
 };
 
+export const createBookingsTable = async () => {
+  try {
+    await pool.query(`
+ CREATE TABLE IF NOT EXISTS bookings (
+  id SERIAL PRIMARY KEY,
+  user_id INT REFERENCES users(id) ON DELETE SET NULL,
+  seat_id INT REFERENCES seats(id) ON DELETE CASCADE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+    `);
+
+    console.log('Bookings table ready');
+  } catch (err) {
+    console.log('Error creating bookings table:', err);
+  }
+};
