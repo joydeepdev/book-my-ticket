@@ -8,27 +8,27 @@ A simplified movie seat booking backend system built using Node.js, Express, and
 
 ## 🚀 Features
 
-* 🔐 User Authentication (Register & Login)
-* 🍪 JWT-based Auth with Refresh Token (HTTP-only cookies)
-* 🛡️ Protected Booking Endpoints
-* 🎟️ Seat Booking System
-* 🚫 Prevents Duplicate Seat Booking (using DB transactions)
-* 👤 Associates bookings with logged-in users
-* 📦 Clean MVC Architecture (Routes → Controllers → Models)
-* ✅ Input Validation using Joi
-* 🗄️ PostgreSQL Database with proper relations
+- 🔐 User Authentication (Register & Login)
+- 🍪 JWT-based Auth with Refresh Token (HTTP-only cookies)
+- 🛡️ Protected Booking Endpoints
+- 🎟️ Seat Booking System
+- 🚫 Prevents Duplicate Seat Booking (using DB transactions)
+- 👤 Associates bookings with logged-in users
+- 📦 Clean MVC Architecture (Routes → Controllers → Models)
+- ✅ Input Validation using Joi
+- 🗄️ PostgreSQL Database with proper relations
 
 ---
 
 ## 🧠 Tech Stack
 
-* Node.js
-* Express.js
-* PostgreSQL
-* JWT (jsonwebtoken)
-* bcrypt
-* Joi (validation)
-* cookie-parser
+- Node.js
+- Express.js
+- PostgreSQL
+- JWT (jsonwebtoken)
+- bcrypt
+- Joi (validation)
+- cookie-parser
 
 ---
 
@@ -88,7 +88,7 @@ JWT_REFRESH_TOKEN=your_refresh_secret
 ### 5. Start Server
 
 ```bash
-npm run dev
+npm run start
 ```
 
 ---
@@ -97,24 +97,23 @@ npm run dev
 
 ### Users
 
-* Stores user credentials and refresh token
+- Stores user credentials and refresh token
 
 ### Seats
 
-* Stores seat availability
+- Stores seat availability
 
 ### Bookings
 
-* Stores booking history linked to users
+- Stores booking history linked to users
 
 ---
 
 ## 🔐 Authentication Flow
 
 1. User logs in → receives:
-
-   * Access Token (short-lived)
-   * Refresh Token (stored in HTTP-only cookie)
+   - Access Token (short-lived)
+   - Refresh Token (stored in HTTP-only cookie)
 
 2. Access token expires → call `/refresh-token`
 
@@ -161,8 +160,8 @@ POST /api/auth/login
 
 **Response:**
 
-* Returns access token
-* Sets refresh token in HTTP-only cookie
+- Returns access token
+- Sets refresh token in HTTP-only cookie
 
 ---
 
@@ -172,7 +171,7 @@ POST /api/auth/login
 POST /api/auth/refresh-token
 ```
 
-* Uses cookie to generate new access token
+- Uses cookie to generate new access token
 
 ---
 
@@ -182,7 +181,7 @@ POST /api/auth/refresh-token
 POST /api/auth/logout
 ```
 
-* Clears refresh token from DB and cookie
+- Clears refresh token from DB and cookie
 
 ---
 
@@ -243,20 +242,20 @@ Authorization: <access_token>
 
 ## 🎟️ Booking Logic
 
-* Uses **database transactions**
-* Locks seat using `FOR UPDATE`
-* Prevents race conditions
-* Ensures only one user can book a seat
+- Uses **database transactions**
+- Locks seat using `FOR UPDATE`
+- Prevents race conditions
+- Ensures only one user can book a seat
 
 ---
 
 ## 🛡️ Validation
 
-* Joi used for:
+- Joi used for:
+  - Register
+  - Login
 
-  * Register
-  * Login
-* Sanitizes input and removes unwanted fields
+- Sanitizes input and removes unwanted fields
 
 ---
 
@@ -264,8 +263,8 @@ Authorization: <access_token>
 
 Use:
 
-* Postman
-* Thunder Client
+- Postman
+- Thunder Client
 
 ### Test Flow:
 
@@ -279,12 +278,12 @@ Use:
 
 ## 💡 Key Highlights
 
-* Built on top of existing codebase (as per assignment rules)
-* Did not break existing endpoints
-* Added secure authentication layer
-* Implemented production-level booking logic with transactions
-* Clean and scalable architecture
-* Implemented refresh token flow using HTTP-only cookies
+- Built on top of existing codebase (as per assignment rules)
+- Did not break existing endpoints
+- Added secure authentication layer
+- Implemented production-level booking logic with transactions
+- Clean and scalable architecture
+- Implemented refresh token flow using HTTP-only cookies
 
 ---
 
@@ -292,8 +291,6 @@ Use:
 
 This project demonstrates:
 
-* Real-world backend extension skills
-* Secure authentication handling
-* Database consistency using transactions
-
-
+- Real-world backend extension skills
+- Secure authentication handling
+- Database consistency using transactions
